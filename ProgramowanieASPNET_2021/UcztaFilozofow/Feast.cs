@@ -18,6 +18,8 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
             for (int i = 0; i < n; i++)
             {
                 philosophers[i] = new Philosopher(cSticks[ (n+ i - 1)%n], cSticks[i]);
+                //Poprawka wprowadzona aby program nie ulegał zakleszczeniu
+                if (i == 0) philosophers[i].LeftHanded = true;
                 philosophers[i].Start();
             }
         }

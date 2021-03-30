@@ -12,6 +12,7 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
         static Random Random = new Random();
         private Chopstick leftChopstick;
         private Chopstick rightChopstick;
+        public bool LeftHanded = false;
 
         public Philosopher(Chopstick lC, Chopstick rC)
         {
@@ -27,23 +28,59 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
             Thread.Sleep(Random.Next()%30);
             while (true)
             {
-                //Console.WriteLine("Filozof " + this + " podnosi pałeczki");
-                leftChopstick.PickUp(this);
-                rightChopstick.PickUp(this);
+                Console.WriteLine("Filozof " + this + " podnosi pałeczki");
+                // Poprawka wprowadzona aby program nie ulegał zakleszczeniu
+                if (!LeftHanded)
+                {
+                    leftChopstick.PickUp(this);
+                    rightChopstick.PickUp(this);
+                }
+                else
+                {
+                    rightChopstick.PickUp(this);
+                    leftChopstick.PickUp(this);
+                }
                 Console.WriteLine("Filozof " + this + " je" );
                 Thread.Sleep(Random.Next() % eatTime);
                 Console.WriteLine("Filozof " + this + " skończył jeść");
                 rightChopstick.PutDown();
                 leftChopstick.PutDown();
-                //Console.WriteLine("Filozof " + this + " śpi");
+                Console.WriteLine("Filozof " + this + " śpi");
                 Thread.Sleep(Random.Next() % sleepTime);
-                //Console.WriteLine("Filozof " + this + " skończył spać");
+                Console.WriteLine("Filozof " + this + " skończył spać");
+            }
+        }
+
+        //Altenatywne rozwiązanie poprawne z czasem dla WaitOne
+        public void LiveV2()
+        {
+            Console.WriteLine("Start Filozofa " + this);
+            Console.WriteLine("Filozof " + this + " lewa:" + leftChopstick + " prawa:" + rightChopstick);
+            Thread.Sleep(Random.Next() % 30);
+            while (true)
+            {
+                Console.WriteLine("Filozof " + this + " podnosi pałeczki");
+                leftChopstick.PickUpV2(this);
+                bool sucess = rightChopstick.PickUpV2(this);
+                if (!sucess) {
+                    leftChopstick.PutDown();
+                    continue;
+                }
+                Console.WriteLine("Filozof " + this + " je");
+                Thread.Sleep(Random.Next() % eatTime);
+                Console.WriteLine("Filozof " + this + " skończył jeść");
+                rightChopstick.PutDown();
+                leftChopstick.PutDown();
+                Console.WriteLine("Filozof " + this + " śpi");
+                Thread.Sleep(Random.Next() % sleepTime);
+                Console.WriteLine("Filozof " + this + " skończył spać");
             }
         }
 
         public void Start()
         {
-            Thread t = new Thread(new ThreadStart(this.Live));
+            //Thread t = new Thread(new ThreadStart(this.Live));
+            Thread t = new Thread(new ThreadStart(this.LiveV2));
             t.Start();
         }
 

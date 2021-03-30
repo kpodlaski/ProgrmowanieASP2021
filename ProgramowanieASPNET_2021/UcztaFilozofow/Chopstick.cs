@@ -25,6 +25,17 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
             Console.WriteLine("Plilosopher " + philosopher + " picked up chopstick " + ID);
         }
 
+        public bool PickUpV2(Philosopher p)
+        {
+            bool success = Mutex.WaitOne(30);
+            if (success)
+            {
+                philosopher = p;
+                Console.WriteLine("Plilosopher " + philosopher + " picked up chopstick " + ID);
+            }
+            return success;
+        }
+
         public void PutDown()
         {
             Console.WriteLine("Plilosopher " + philosopher + " put down chopstick " + ID);
