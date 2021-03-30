@@ -27,6 +27,7 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
             Thread.Sleep(Random.Next()%30);
             while (true)
             {
+                //Console.WriteLine("Filozof " + this + " podnosi pałeczki");
                 leftChopstick.PickUp(this);
                 rightChopstick.PickUp(this);
                 Console.WriteLine("Filozof " + this + " je" );
@@ -34,7 +35,9 @@ namespace ProgramowanieASPNET_2021.UcztaFilozofow
                 Console.WriteLine("Filozof " + this + " skończył jeść");
                 rightChopstick.PutDown();
                 leftChopstick.PutDown();
+                //Console.WriteLine("Filozof " + this + " śpi");
                 Thread.Sleep(Random.Next() % sleepTime);
+                //Console.WriteLine("Filozof " + this + " skończył spać");
             }
         }
 
