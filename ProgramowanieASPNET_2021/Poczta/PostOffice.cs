@@ -20,12 +20,27 @@ namespace ProgramowanieASPNET_2021.Poczta
 
         internal void serveMe(Client client)
         {
-            semaphore.WaitOne();
-            Console.WriteLine("Klient " + client.ID + " szuka wolnego okienka");
-            Clerk clerk = getFreeClerk();
-            clerk.serveClient(client);
-            clerk.makeFree();
-            semaphore.Release();
+            bool success = false;
+            bool semaphore_taken = false;
+            try
+            {
+                semaphore_taken = semaphore.WaitOne(10);
+                Console.WriteLine("Klient " + client.ID + " szuka wolnego okienka");
+                Clerk clerk = getFreeClerk();
+                clerk.serveClient(client);
+                clerk.makeFree();
+                success = true;
+                semaphore.Release();
+            }
+            catch (AbandonedMutexException)
+            {
+                success = false;
+            }
+            if (!success)
+            {
+                if (semaphore_taken) semaphore.Release();
+                serveMe(client);
+            }
         }
 
         private Clerk getFreeClerk()
@@ -46,7 +61,7 @@ namespace ProgramowanieASPNET_2021.Poczta
 
         public static void Main()
         {
-            int noOfClients = 20;
+            int noOfClients = 1000;
             int noOfClerks = 3;
             PostOffice po = new PostOffice(noOfClerks);
             for (int i=0; i< noOfClients; i++)
