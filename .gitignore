@@ -5,3 +5,6 @@ bin/*
 obj
 obj/*
 *csproj
+studenckie
+studenckie/*
+*/studenckie*
