@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -12,17 +13,22 @@ namespace ProgramowanieASPNET_2021.Wyscigi
         public int noOfHorses { get; private set; }
         private List<Horse> horses;
         private long startTime =0;
+        public ConcurrentQueue<String> consoleQueue;
+        private volatile bool raceInProgress = false;
 
         HorseRace(int distance, String[] names)
         {
             this.distance = distance;
             this.noOfHorses = names.Length;
-            startBarrier = new Barrier(noOfHorses, (b) => { 
+            raceInProgress = true;
+            startBarrier = new Barrier(noOfHorses, (b) => {                                                            
                                                             Console.WriteLine("Start Wyścigów"); 
                                                             startTime = DateTime.Now.Ticks;
                                                           }
             );
-            finishBarrier = new Barrier(noOfHorses, (b) => { showRanking(); });
+            finishBarrier = new Barrier(noOfHorses, (b) => { 
+                                                            raceInProgress = false;
+                                                            showRanking(); });
             horses = new List<Horse>();
             foreach (String name in names)
             {
@@ -31,6 +37,9 @@ namespace ProgramowanieASPNET_2021.Wyscigi
                 Thread t = new Thread(new ThreadStart(h.run));
                 t.Start();
             }
+            consoleQueue = new ConcurrentQueue<String>();
+            Thread th = new Thread(new ThreadStart(consoleThread));
+            th.Start();
         }
 
         private void showRanking()
@@ -46,6 +55,15 @@ namespace ProgramowanieASPNET_2021.Wyscigi
             Console.WriteLine("==================");
         }
 
+        private void consoleThread() {
+            String line;
+            while (true) 
+            {
+                if (consoleQueue.TryDequeue(out line)){ 
+                    Console.WriteLine(line);
+                }
+            }
+        }
         public static void Main()
         {
             int distance = 150;

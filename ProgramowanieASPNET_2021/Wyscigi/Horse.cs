@@ -39,8 +39,12 @@ namespace ProgramowanieASPNET_2021.Wyscigi
                     }
                 }
             }
-            Time = DateTime.Now.Ticks;
-            Console.WriteLine("Koń " + Name + " dotarł do mety w przy tick:\t" + Time);
+            //This enforce proper order, but we have addotional synchronization of elements
+            //lock (race) {
+                Time = DateTime.Now.Ticks;
+                race.consoleQueue.Enqueue("Koń " + Name + " dotarł do mety w przy tick:\t" + Time);
+            //}
+            //Console.WriteLine("Koń " + Name + " dotarł do mety w przy tick:\t" + Time);
             race.finishBarrier.SignalAndWait();
             Console.WriteLine("Koń " + Name + " jedzie do stajni");
         }
