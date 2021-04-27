@@ -10,7 +10,7 @@ namespace ProgramowanieASPNET_2021.Wyscigi
         private HorseRace race;
         static Random rand = new Random();
         private double v;
-        public int Time = 0;
+        public long Time = 0;
 
         public Horse(String Name, HorseRace race)
         {
@@ -39,8 +39,8 @@ namespace ProgramowanieASPNET_2021.Wyscigi
                     }
                 }
             }
-            Console.WriteLine("Koń " + Name + " dotarł do mety w czasie " + time + "s");
-            Time = time;
+            Time = DateTime.Now.Ticks;
+            Console.WriteLine("Koń " + Name + " dotarł do mety w przy tick:\t" + Time);
             race.finishBarrier.SignalAndWait();
             Console.WriteLine("Koń " + Name + " jedzie do stajni");
         }

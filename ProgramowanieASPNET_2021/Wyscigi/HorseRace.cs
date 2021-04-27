@@ -38,9 +38,10 @@ namespace ProgramowanieASPNET_2021.Wyscigi
             horses.Sort((h, h2) => h.Time.CompareTo(h2.Time));
             Console.WriteLine("==================");
             Console.WriteLine("Wyniki końcowe");
-            foreach(Horse horse in horses)
+            foreach (Horse horse in horses)
             {
-                Console.WriteLine(horse.Name + " " + horse.Time + "s");
+                double time = (horse.Time - startTime)*1.0 / TimeSpan.TicksPerMillisecond;
+                Console.WriteLine(horse.Name + " " + time + "s");
             }
             Console.WriteLine("==================");
         }
@@ -48,8 +49,8 @@ namespace ProgramowanieASPNET_2021.Wyscigi
         public static void Main()
         {
             int distance = 150;
-            String[] names = {  "Black Arrow",  "Sparrow",  "Raven",    "Quark",  "Yellow Patch",
-                                "Blue Lady",    "Ladybug",  "Fat Tom",  "Crazy Tex",   "Lighting" };
+            String[] names = {  "Blackie",  "Sparrow",  "Raven",    "Quark",  "Pixie",
+                                "Tipsy",    "Ladybug",  "Fat Tom",  "Tex",   "Light" };
             HorseRace race = new HorseRace(distance, names);
         }
     }
