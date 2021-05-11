@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramowanieASPNET_2021", "ProgramowanieASPNET_2021\ProgramowanieASPNET_2021.csproj", "{B780D389-CE96-4DC2-B4D0-AD3D99E33C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgramowanieASPNET_2021", "ProgramowanieASPNET_2021\ProgramowanieASPNET_2021.csproj", "{B780D389-CE96-4DC2-B4D0-AD3D99E33C9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowApp", "WindowApp\WindowApp.csproj", "{A2CA25BA-722E-4EB0-B6A6-3EB99C995A72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B780D389-CE96-4DC2-B4D0-AD3D99E33C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B780D389-CE96-4DC2-B4D0-AD3D99E33C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B780D389-CE96-4DC2-B4D0-AD3D99E33C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2CA25BA-722E-4EB0-B6A6-3EB99C995A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CA25BA-722E-4EB0-B6A6-3EB99C995A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2CA25BA-722E-4EB0-B6A6-3EB99C995A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2CA25BA-722E-4EB0-B6A6-3EB99C995A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
